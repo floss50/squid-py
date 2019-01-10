@@ -183,6 +183,8 @@ In addition to the configuration file, you may use the following environment var
 
     ```
     python3 setup.py test
+    or
+    TEST_TIER=unit python3 setup.py test # where TEST_TIER is unit, integration or e2e to decide which parts of the tests you want to run
     ```
 
 #### Code style
