@@ -10,10 +10,12 @@ from squid_py.ddo import DDO
 from squid_py.ocean.asset import Asset
 from squid_py.test_resources.helper_functions import get_resource_path
 
+from ...test_resources.tiers import e2e_test
+
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 logging.getLogger("web3").setLevel(logging.WARNING)
 
-
+@e2e_test
 def test_create_asset_ddo_file():
     # An asset can be created directly from a DDO .json file
     sample_ddo_path = get_resource_path('ddo', 'ddo_sample1.json')
@@ -28,6 +30,7 @@ def test_create_asset_ddo_file():
     print(asset1.metadata)
 
 
+@e2e_test
 def test_register_data_asset_market(publisher_ocean_instance, consumer_ocean_instance):
     """
     Setup accounts and asset, register this asset in Keeper node (On-chain only)
@@ -80,6 +83,7 @@ def test_register_data_asset_market(publisher_ocean_instance, consumer_ocean_ins
     logging.debug("chain_asset_price = {}".format(chain_asset_price))
 
 
+@e2e_test
 def test_publish_data_asset_aquarius(publisher_ocean_instance, consumer_ocean_instance):
     """
     Setup accounts and asset, register this asset on Aquarius (MetaData store)

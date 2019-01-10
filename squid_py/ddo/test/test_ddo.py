@@ -12,6 +12,7 @@ from squid_py.ddo import (
 )
 from squid_py.did import DID
 from squid_py.test_resources.helper_functions import get_resource_path
+from ...test_resources.tiers import e2e_test
 
 public_key_store_types = [
     PUBLIC_KEY_STORE_TYPE_PEM,
@@ -139,6 +140,7 @@ def generate_sample_ddo():
     return ddo, private_key
 
 
+@e2e_test
 def test_creating_ddo():
     did = DID().did
     assert did
@@ -186,6 +188,7 @@ def test_creating_ddo():
     assert ddo.calculate_hash() == ddo_text_no_proof_hash
 
 
+@e2e_test
 def test_creating_ddo_embedded_public_key():
     did = DID().did
     assert did
@@ -207,6 +210,7 @@ def test_creating_ddo_embedded_public_key():
         assert ddo_text_proof_hash
 
 
+@e2e_test
 def test_creating_did_using_ddo():
     # create an empty ddo
     ddo = DDO()
@@ -223,6 +227,7 @@ def test_creating_did_using_ddo():
     assert ddo.validate_proof()
 
 
+@e2e_test
 def test_load_ddo_json():
     # TODO: Fix
     sample_ddo_path = get_resource_path('ddo', 'ddo_sample1.json')
@@ -240,6 +245,7 @@ def test_load_ddo_json():
     assert values['metadata']
 
 
+@e2e_test
 def test_ddo_dict():
     sample_ddo_path = get_resource_path('ddo', 'ddo_sample1.json')
     assert sample_ddo_path.exists(), "{} does not exist!".format(sample_ddo_path)
@@ -250,6 +256,7 @@ def test_ddo_dict():
     assert ddo1.did == 'did:op:3597a39818d598e5d60b83eabe29e337d37d9ed5af218b4af5e94df9f7d9783a'
 
 
+@e2e_test
 def test_generate_test_ddo_files():
     for index in range(1, 3):
         ddo, private_key = generate_sample_ddo()

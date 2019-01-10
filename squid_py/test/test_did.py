@@ -15,11 +15,14 @@ from squid_py.did import (
     DID,
     OCEAN_PREFIX
 )
+from ..test_resources.tiers import e2e_test
+
 
 TEST_SERVICE_TYPE = 'ocean-meta-storage'
 TEST_SERVICE_URL = 'http://localhost:8005'
 
 
+@e2e_test
 def test_did():
     test_id = '%s' % secrets.token_hex(32)
 
@@ -68,6 +71,7 @@ def test_did():
     assert did_to_id('did:op:0') == '0'
 
 
+@e2e_test
 def test_did_to_bytes():
     id_test = secrets.token_hex(32)
     did_test = 'did:op:{}'.format(id_test)

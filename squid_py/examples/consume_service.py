@@ -1,4 +1,6 @@
+from ..test_resources.tiers import e2e_test
 
+@e2e_test
 def test_consume_flow():
     # This test requires all services running including:
     # secret store

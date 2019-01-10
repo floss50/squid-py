@@ -30,6 +30,7 @@ from squid_py.service_agreement.service_agreement import ServiceAgreement
 from squid_py.service_agreement.service_factory import ServiceDescriptor
 from squid_py.service_agreement.service_types import ServiceTypes
 from squid_py.test_resources.helper_functions import get_registered_ddo, get_publisher_ocean_instance, get_resource_path
+from ...test_resources.tiers import e2e_test
 
 
 def print_config(ocean_instance):
@@ -40,6 +41,7 @@ def print_config(ocean_instance):
     print("Ocean.config.aquarius_url: {}".format(ocean_instance.config.aquarius_url))
 
 
+@e2e_test
 def test_ocean_instance(publisher_ocean_instance):
     print_config(publisher_ocean_instance)
     assert publisher_ocean_instance.keeper.token is not None
@@ -47,6 +49,7 @@ def test_ocean_instance(publisher_ocean_instance):
     print_config(publisher_ocean_instance)
 
 
+@e2e_test
 def test_accounts(publisher_ocean_instance):
     for address in publisher_ocean_instance.accounts:
         print(publisher_ocean_instance.accounts[address])
@@ -57,6 +60,7 @@ def test_accounts(publisher_ocean_instance):
         assert account.ocean_balance >= 0
 
 
+@e2e_test
 def test_token_request(publisher_ocean_instance, consumer_ocean_instance):
     amount = 2000
 
@@ -88,6 +92,7 @@ def test_token_request(publisher_ocean_instance, consumer_ocean_instance):
     # assert aquarius_current_ocean == aquarius_start_ocean + amount
 
 
+@e2e_test
 def test_register_asset(publisher_ocean_instance):
     logging.debug("".format())
     asset_price = 100
@@ -130,6 +135,7 @@ def test_register_asset(publisher_ocean_instance):
     publisher_ocean_instance.register_asset(asset.metadata, publisher, service_descriptors)
 
 
+@e2e_test
 def test_resolve_did(publisher_ocean_instance):
     # prep ddo
     metadata = Metadata.get_example()
@@ -161,6 +167,7 @@ def test_resolve_did(publisher_ocean_instance):
         publisher_ocean_instance.resolve_did(invalid_did)
 
 
+@e2e_test
 def test_sign_agreement(publisher_ocean_instance, consumer_ocean_instance, registered_ddo):
     # assumptions:
     #  - service agreement template must already be registered
@@ -202,6 +209,7 @@ def test_sign_agreement(publisher_ocean_instance, consumer_ocean_instance, regis
     print('agreement was fulfilled.')
 
 
+@e2e_test
 def test_execute_agreement(publisher_ocean_instance, consumer_ocean_instance, registered_ddo):
     """
     This tests execute agreement without going through Ocean's sign agreement / execute agreement
@@ -330,6 +338,7 @@ def wait_for_event(event, arg_filter, wait_iterations=20):
         time.sleep(0.5)
 
 
+@e2e_test
 def test_agreement_hash(publisher_ocean_instance):
     """
     This test verifies generating agreement hash using fixed inputs and ddo example.
@@ -361,6 +370,7 @@ def test_agreement_hash(publisher_ocean_instance):
     assert agreement_hash.hex() == "0x66652d0f8f8ec464e67aa6981c17fa1b1644e57d9cfd39b6f1b58ad1b71d61bb", 'hash does not match.'
 
 
+@e2e_test
 def test_verify_signature(consumer_ocean_instance):
     """
     squid-py currently uses `web3.eth.sign()` to sign the service agreement hash. This signing method
@@ -412,6 +422,7 @@ def test_verify_signature(consumer_ocean_instance):
     verify_signature(address, agreement_hash, signature, 0)
 
 
+@e2e_test
 def test_consume_flow(consumer_ocean_instance):
     # This test requires all services running including:
     # secret store

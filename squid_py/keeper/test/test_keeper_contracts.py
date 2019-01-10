@@ -11,6 +11,7 @@ import secrets
 from squid_py.config import Config
 from squid_py.ocean.ocean import Ocean
 
+from ...test_resources.tiers import e2e_test
 
 def get_ocean_instance():
     path_config = 'config_local.ini'
@@ -19,6 +20,7 @@ def get_ocean_instance():
     return ocean
 
 
+@e2e_test
 def test_didregistry_contract():
     ocean = get_ocean_instance()
     assert ocean
@@ -29,6 +31,7 @@ def test_didregistry_contract():
     assert ocean.keeper.did_registry.get_update_at(test_id) == 0
 
 
+@e2e_test
 def test_market_contract():
     ocean = get_ocean_instance()
     assert ocean
@@ -38,6 +41,7 @@ def test_market_contract():
     assert ocean.keeper.market.verify_order_payment(test_id)
 
 
+@e2e_test
 def test_token_contract():
     ocean = get_ocean_instance()
     assert ocean

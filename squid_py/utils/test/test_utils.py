@@ -4,7 +4,9 @@ from web3 import Web3
 from squid_py.keeper.web3_provider import Web3Provider
 from squid_py.utils import utilities
 
+from ...test_resources.tiers import e2e_test
 
+@e2e_test
 def test_split_signature():
     signature = b'\x19\x15!\xecwnX1o/\xdeho\x9a9\xdd9^\xbb\x8c2z\x88!\x95\xdc=\xe6\xafc' \
                 b'\x0f\xe9\x14\x12\xc6\xde\x0b\n\xa6\x11\xc0\x1cvv\x9f\x99O8\x15\xf6f' \
@@ -16,7 +18,7 @@ def test_split_signature():
     assert split_signature.s == b'\x14\x12\xc6\xde\x0b\n\xa6\x11\xc0\x1cvv\x9f\x99O8\x15' \
                                 b'\xf6f\xe7\xab\xea\x982Ds\x0bX\xd9\x94\xa42'
 
-
+@e2e_test
 def test_get_publickey_from_address(publisher_ocean_instance):
     from eth_keys.exceptions import BadSignature
     for account in publisher_ocean_instance.accounts:
@@ -29,7 +31,7 @@ def test_get_publickey_from_address(publisher_ocean_instance):
         except ValueError:
             pass
 
-
+@e2e_test
 def test_convert():
     input_text = "my text"
     print("output %s" % utilities.convert_to_string(Web3,

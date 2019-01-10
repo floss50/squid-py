@@ -21,11 +21,13 @@ from squid_py.service_agreement.register_service_agreement import (
 from squid_py.service_agreement.storage import get_service_agreements
 from squid_py.service_agreement.utils import build_condition_key
 from squid_py.utils.utilities import generate_new_id
+from ...test_resources.tiers import e2e_test
 
 CONFIG_PATH = 'config_local.ini'
 NUM_WAIT_ITERATIONS = 20
 
 
+@e2e_test
 class TestRegisterServiceAgreement(unittest.TestCase):
 
     @classmethod

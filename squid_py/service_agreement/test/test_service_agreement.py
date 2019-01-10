@@ -12,6 +12,7 @@ from squid_py.keeper.utils import get_fingerprint_bytes_by_name
 from squid_py.ocean.ocean import Ocean
 from squid_py.service_agreement.service_agreement_template import ServiceAgreementTemplate
 from squid_py.test_resources.helper_functions import get_resource_path
+from ...test_resources.tiers import e2e_test
 
 CONFIG_PATH = 'config_local.ini'
 
@@ -23,6 +24,7 @@ with open(SAMPLE_METADATA_PATH) as f:
     SAMPLE_METADATA = json.load(f)
 
 
+@e2e_test
 class TestServiceAgreement(unittest.TestCase):
 
     def setUp(self):
