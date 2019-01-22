@@ -18,9 +18,15 @@
 #Default (no environment variable) is Spree"
 
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+#RED='\033[0;31m'
+#GREEN='\033[0;32m'
+#NC='\033[0m' # No Color
+
+BLUE=$(tput setaf 4)
+NC=$(tput sgr0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+printf "%40s\n" "${blue}This text is blue${normal}"
 
 let passes=0
 let fails=0
@@ -32,9 +38,9 @@ runtest() {
 #    conda env list
     SCRIPT_PATH=$1
     SCRIPT_NAME=$2
-    echo "\n*********************************************************"
-    echo -e " Running test: " $2
-    echo "*********************************************************\n"
+    printf "\n*********************************************************\n"
+    printf " Running test: %s\n" $SCRIPT_NAME
+    printf "*********************************************************\n"
 
     python $SCRIPT_PATH$SCRIPT_NAME
 
@@ -43,17 +49,20 @@ runtest() {
         MESSAGE="Success, (exit code "$exit_status")"
         passes=$((passes + 1))
         total=$((total + 1))
-        summarystring="$summarystring${GREEN}     ✔ $SCRIPT_NAME  \n"
+        summarystring="$summarystring${GREEN}     ✔ $SCRIPT_NAME${NC}\n"
+        #summarystring="$summarystring${GREEN}     ✔ $SCRIPT_NAME\n"
     else
-        MESSAGE="Fail, (exit code "$exit_status")"
+        MESSAGE="Fail, (exit code $exit_status)"
         fails=$((fails + 1))
         total=$((total + 1))
-        summarystring="$summarystring${RED}     ✗ $SCRIPT_NAME    \n"
+        summarystring="$summarystring${RED}     ✗ $SCRIPT_NAME${NC}\n"
+        #summarystring="$summarystring${RED}     ✗ $SCRIPT_NAME\n"
     fi
 
-    echo "\n********* TEST COMPLETE *********************************"
-    echo " $SCRIPT_NAME: $MESSAGE"
-    echo "*********************************************************\n"
+    printf "\n********* TEST COMPLETE *********************************\n"
+#    printf " $($SCRIPT_NAME) : $($MESSAGE)\n"
+    printf " %s : %s\n" "$SCRIPT_NAME" "$MESSAGE"
+    printf "*********************************************************\n"
 }
 
 runtest ./squid_py/examples/ register_asset.py
@@ -64,26 +73,28 @@ runtest ./squid_py/examples/ buy_asset.py
 
 SQUID_VERSION=$(pip freeze | grep squid)
 
-echo "\n********* SUMMARY OF $total TESTS ***************************"
+printf "\n********* SUMMARY OF %d TESTS ***************************\n" $total 
 
-echo -e "\n"
-echo "     Squid version:"
-echo "     "$SQUID_VERSION
-
-echo -e "\n"
+printf "\n"
+printf "%s\n" "     Squid version:"
+#printf "%s\n" `$SQUID_VERSION`
+echo $SQUID_VERSION
+printf "\n"
 if [ $TEST_NILE -eq 1 ]; then
-    echo "     Summary of $total tests against deployed Nile network"
+    printf "     Summary of %s tests against deployed Nile network \n" $total
 else
-    echo "     Summary of $total tests against local Spree network"
+    printf "     Summary of %s tests against local Spree network \n" $total 
 fi
 
-echo "\n"
-echo "     "$passes" scripts passed"
-echo "     "$fails" scripts failed"
+printf "\n"
+printf "     %s scripts passed\n" $passes
+printf "     %s scripts failed\n" $fails 
 
-echo "\n"
+printf "\n"
 
-echo $summarystring
-echo ${NC}
+#printf "%s\n" $summarystring
+echo -e $summarystring
+#printf "%s\n" ${NC}
 
-echo "*********************************************************\n"
+printf "*********************************************************\n"
+
