@@ -26,7 +26,7 @@ let passes=0
 let fails=0
 let total=0
 unset summarystring
-let summarystring=""
+summarystring=""
 
 runtest() {
 #    conda env list
