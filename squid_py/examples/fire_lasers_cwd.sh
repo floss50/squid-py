@@ -22,11 +22,15 @@
 #GREEN='\033[0;32m'
 #NC='\033[0m' # No Color
 
+source /home/ubuntu/.local/share/virtualenvs/squid-py-T9JvGpNI/bin/activate
+
 BLUE=$(tput setaf 4)
 NC=$(tput sgr0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 printf "%40s\n" "${blue}This text is blue${normal}"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+echo $DIR
 
 let passes=0
 let fails=0
@@ -42,7 +46,7 @@ runtest() {
     printf " Running test: %s\n" $SCRIPT_NAME
     printf "*********************************************************\n"
 
-    python $SCRIPT_PATH$SCRIPT_NAME
+    python $SCRIPT_PATH/$SCRIPT_NAME
 
     exit_status=$?
     if [ $exit_status -eq 0 ]; then
@@ -65,11 +69,11 @@ runtest() {
     printf "*********************************************************\n"
 }
 
-runtest ./squid_py/examples/ register_asset.py
-runtest ./squid_py/examples/ resolve_asset.py
-runtest ./squid_py/examples/ search_assets.py
-runtest ./squid_py/examples/ sign_agreement.py
-runtest ./squid_py/examples/ buy_asset.py
+runtest $DIR register_asset.py
+runtest $DIR resolve_asset.py
+runtest $DIR search_assets.py
+runtest $DIR sign_agreement.py
+runtest $DIR buy_asset.py
 
 SQUID_VERSION=$(pip freeze | grep squid)
 
@@ -97,4 +101,10 @@ echo -e $summarystring
 #printf "%s\n" ${NC}
 
 printf "*********************************************************\n"
+
+
+printf "Uploading to S3...\n"
+DATE=`date +%d-%m-%y-%H-%M-%S`
+cp ~/testnile.log "~/${DATE} testnile.log"
+aws s3 cp ~/testnile.log s3://integration-testing-001/
 
