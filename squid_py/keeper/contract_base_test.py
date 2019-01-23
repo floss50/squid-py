@@ -8,8 +8,9 @@ from .contract_base import ContractBase
 @unit_test
 def test_to_checksum_address():
     contract_handler = Mock()
-    web3 = Mock()
-    web3.toChecksumAddress = MagicMock(return_value='checksum address!')
+    web3 = Mock(
+        toChecksumAddress=MagicMock(return_value='checksum address!'),
+    )
     with inject_dependencies(ContractBase, 'TestContract',
                              dependencies={'ContractHandler': contract_handler,
                                            'web3': web3}) as contract_base:

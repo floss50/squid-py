@@ -4,11 +4,12 @@ import pytest
 from squid_py.config_provider import ConfigProvider
 from squid_py.keeper.token import Token
 from tests.resources.helper_functions import get_publisher_account, get_consumer_account
-from tests.resources.tiers import e2e_test
+from tests.resources.tiers import e2e_test, should_run_test
 
-token = Token('OceanToken')
-consumer_account = get_consumer_account(ConfigProvider.get_config())
-publisher_account = get_publisher_account(ConfigProvider.get_config())
+if should_run_test('e2e'):
+    token = Token('OceanToken')
+    consumer_account = get_consumer_account(ConfigProvider.get_config())
+    publisher_account = get_publisher_account(ConfigProvider.get_config())
 
 
 @e2e_test

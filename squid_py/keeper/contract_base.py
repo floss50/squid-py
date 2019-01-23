@@ -14,15 +14,15 @@ logger = logging.getLogger('keeper')
 class ContractBase(object):
     """Base class for all contract objects."""
 
-    def __init__(self, contract_name, dependencies={}):
+    def __init__(self, contract_name, ContractHandler=None):
 
         self.name = contract_name
 
-        if 'ContractHandler' not in dependencies:
-            from squid_py.keeper.contract_handler import ContractHandler
-            dependencies['ContractHandler'] = ContractHandler
-        self.contract_concise = dependencies['ContractHandler'].get_concise_contract(contract_name)
-        self.contract = dependencies['ContractHandler'].get(contract_name)
+        if not ContractHandler:
+            from squid_py.keeper.contract_handler import ContractHandler as CH
+            ContractHandler = CH
+        self.contract_concise = ContractHandler.get_concise_contract(contract_name)
+        self.contract = ContractHandler.get(contract_name)
 
         logger.debug(f'Loaded {self}')
 

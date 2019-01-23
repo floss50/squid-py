@@ -1,8 +1,9 @@
 """Test PaymentConditions contract."""
 from squid_py.keeper.conditions.payment_conditions import PaymentConditions
-from tests.resources.tiers import e2e_test
+from tests.resources.tiers import e2e_test, should_run_test
 
-payment_conditions = PaymentConditions('PaymentConditions')
+if should_run_test('e2e'):
+    payment_conditions = PaymentConditions('PaymentConditions')
 
 
 @e2e_test

@@ -6,6 +6,7 @@ from squid_py.examples.example_config import ExampleConfig
 from squid_py.keeper.event_listener import EventListener
 from squid_py.keeper.web3_provider import Web3Provider
 from tests.resources.helper_functions import get_account_from_config
+from tests.resources.tiers import e2e_test
 
 
 def _log_event(event_name):
@@ -15,6 +16,7 @@ def _log_event(event_name):
     return _process_event
 
 
+@e2e_test
 def test_buy_asset(consumer_ocean_instance, registered_ddo):
     ConfigProvider.set_config(ExampleConfig.get_config())
     w3 = Web3Provider.get_web3()
