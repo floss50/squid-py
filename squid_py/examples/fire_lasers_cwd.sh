@@ -24,13 +24,24 @@
 
 source /home/ubuntu/.local/share/virtualenvs/squid-py-T9JvGpNI/bin/activate
 
-BLUE=$(tput setaf 4)
-NC=$(tput sgr0)
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-printf "%40s\n" "${blue}This text is blue${normal}"
+#BLUE=$(tput setaf 4)
+#NC=$(tput sgr0)
+#RED=$(tput setaf 1)
+#GREEN=$(tput setaf 2)
+BLUE=
+NC=
+RED=
+GREEN=
+
+START_DATE=`date +\%d-\%m-\%y-\%H-\%M-\%S`
+echo Script started at $START_DATE
+
+#printf "%40s\n" "${blue}This text is blue${normal}"
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 echo $DIR
+
+
 
 let passes=0
 let fails=0
@@ -103,6 +114,8 @@ echo -e $summarystring
 printf "*********************************************************\n"
 
 
+END_DATE=`date +\%d-\%m-\%y-\%H-\%M-\%S`
+echo Script ended at $END_DATE
 #printf "Uploading to S3...\n"
 #DATE=`date +%d-%m-%y-%H-%M-%S`
 #cp ~/testnile.log "~/${DATE} testnile.log"
