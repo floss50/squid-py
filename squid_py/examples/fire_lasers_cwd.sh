@@ -103,8 +103,8 @@ echo -e $summarystring
 printf "*********************************************************\n"
 
 
-printf "Uploading to S3...\n"
-DATE=`date +%d-%m-%y-%H-%M-%S`
-cp ~/testnile.log "~/${DATE} testnile.log"
-aws s3 cp ~/testnile.log s3://integration-testing-001/
+#printf "Uploading to S3...\n"
+#DATE=`date +%d-%m-%y-%H-%M-%S`
+#cp ~/testnile.log "~/${DATE} testnile.log"
+#aws s3 cp ~/testnile.log s3://integration-testing-001/
 
