@@ -19,8 +19,8 @@ class ContractBase(object):
         self.name = contract_name
 
         if not contract_handler:
-            from squid_py.keeper.contract_handler import ContractCandler
-            contract_handler = ContractCandler
+            from squid_py.keeper.contract_handler import ContractHandler
+            contract_handler = ContractHandler
         self.contract_concise = contract_handler.get_concise_contract(contract_name)
         self.contract = contract_handler.get(contract_name)
 
