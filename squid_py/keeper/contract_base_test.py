@@ -12,7 +12,7 @@ def test_to_checksum_address():
         toChecksumAddress=MagicMock(return_value='checksum address!'),
     )
     with inject_dependencies(ContractBase, 'TestContract',
-                             dependencies={'ContractHandler': contract_handler,
+                             dependencies={'contract_handler': contract_handler,
                                            'web3': web3}) as contract_base:
         assert contract_base.to_checksum_address('bla') == 'checksum address!'
         web3.toChecksumAddress.assert_called_with('bla')
